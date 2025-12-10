@@ -3,17 +3,19 @@ function displayTemperature(response) {
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
   let descriptionElement = document.querySelector("#description");
-  let timeElement = document.querySelector("#time");
-  let date = new Date(response.data.time * 1000);
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
-  console.log(response.data);
+  let timeElement = document.querySelector("#time");
+  let date = new Date(response.data.time * 1000);
+  let iconElement = document.querySelector("#icon");
 
   cityElement.innerHTML = response.data.city;
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(date);
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
-  windElement.innerHTML = `${response.data.wind.speed}km/h`;
+  windElement.innerHTML = `${response.data.wind.speed} km/h`;
+  temperatureElement.innerHTML = Math.round(temperature);
+  iconElement.innerHTML = `<img src= "${response.data.condition.icon_url}"/>`;
 }
 
 function formatDate(date) {
@@ -47,7 +49,7 @@ function searchCity(city) {
 function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  let city = searchInputElement.value;
+  searchCity(searchInputElement.value);
 }
 
 let searchForm = document.querySelector("#search-form");
